@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Category Form</title>
+</head>
+<body>
+
+<h1>Inventory Management System</h1>
+
+<h2 th:text="${category.id == null ? 'Add New Category' : 'Edit Category'}">
+  Category Form
+</h2>
+
+<form th:action="${category.id == null}
+            ? @{/categories}
+            : @{/categories/update/{id}(id=${category.id})}"
+      th:object="${category}"
+      method="post">
+
+  <!-- Preserve category ID when editing -->
+  <input type="hidden" th:field="*{id}">
+
+  <!-- Category Name -->
+  <label for="name">Category Name:</label>
+
+  <input type="text"
+         id="name"
+         th:field="*{name}"
+         placeholder="Enter category name">
+
+  <p th:if="${#fields.hasErrors('name')}"
+     th:errors="*{name}"
+     style="color: red;">
+  </p>
+
+  <br>
+
+  <!-- Description -->
+  <label for="description">Description:</label>
+
+  <textarea id="description"
+            th:field="*{description}"
+            placeholder="Enter category description">
+        </textarea>
+
+  <p th:if="${#fields.hasErrors('description')}"
+     th:errors="*{description}"
+     style="color: red;">
+  </p>
+
+  <br><br>
+
+  <button type="submit">Save Category</button>
+
+  <a th:href="@{/categories}">Cancel</a>
+
+</form>
+
+</body>
+</html>

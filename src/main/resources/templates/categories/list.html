@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Categories</title>
+</head>
+<body>
+
+<h1>Inventory Management System</h1>
+
+<h2>Manage Categories</h2>
+
+<a th:href="@{/categories/new}">Add New Category</a>
+
+<table border="1" cellpadding="10">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Category Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="category : ${categories}">
+        <td th:text="${category.id}"></td>
+        <td th:text="${category.name}"></td>
+        <td th:text="${category.description}"></td>
+
+        <td>
+            <a th:href="@{/categories/edit/{id}(id=${category.id})}">
+                Edit
+            </a>
+
+            <form th:action="@{/categories/delete/{id}(id=${category.id})}"
+                  method="post"
+                  style="display:inline;">
+
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
